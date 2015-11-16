@@ -4,6 +4,8 @@
 struct config {
 	char fname[256];
 	char lname[256];
+
+	int stime;
 };
 
 struct config *load_config();

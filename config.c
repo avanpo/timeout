@@ -26,12 +26,15 @@ struct config *load_config()
 		if (strcmp(key, "last name") == 0) {
 			strncpy(config->lname, value, strlen(value));
 		}
+		if (strcmp(key, "start time") == 0) {
+			config->stime = (int)strtol(value, NULL, 10);
+		}
 
 		memset(key, 0, 256);
 		memset(value, 0, 1024);
 	}
 
-	if (i != 2) {
+	if (i != 3) {
 		fprintf(stderr, "Config file malformed.\n");
 		exit(EXIT_FAILURE);
 	}
