@@ -1,11 +1,10 @@
 #include <ncurses.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
 #include "config.h"
-#include "countdown.h"
+#include "draw.h"
 #include "input.h"
 #include "utils.h"
 
@@ -57,11 +56,11 @@ int run(struct config *conf)
 		time(&now);
 		time_left = time_total - (now - start);
 
-		draw_countdown(time_left, 0, 0);
-
-		move(7, index);
+		draw_page(time_left, conf);
 
 		handle_input(&index, input, 7, 0);
+
+		millisleep(10);
 	}
 }
 
@@ -93,6 +92,7 @@ void init_window_main()
 	cbreak();
 	noecho();
 	nodelay(stdscr, TRUE);
+	curs_set(0);
 
 	clear();
 	refresh();

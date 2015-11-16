@@ -1,7 +1,6 @@
 #include <ncurses.h>
 
-#define COUNTDOWN_HEIGHT 5
-#define COUNTDOWN_LENGTH 34
+#include "countdown.h"
 
 static short disp[11] = {
 	075557, 011111, 071747, 071717,
