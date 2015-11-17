@@ -1,12 +1,14 @@
 #include <ncurses.h>
 #include <string.h>
 
-void handle_input(int *index, int *input)
+#include "state.h"
+
+void handle_input(struct state *st)
 {
 	int y, x;
 	getyx(stdscr, y, x);
 
-	move(y, x + *index);
+	move(y, x + st->index);
 
 	int ch;
 	if ((ch = getch()) == ERR) {
@@ -14,28 +16,28 @@ void handle_input(int *index, int *input)
 	}
 	
 	if (ch == KEY_BACKSPACE || ch == KEY_DC || ch == 127) {
-		if (*index != 0) {
-			--(*index);
+		if (st->index != 0) {
+			--(st->index);
 
-			input[*index] = 0;
-			move(y, x + *index);
+			st->input[st->index] = 0;
+			move(y, x + st->index);
 			addch(' ');
-			move(y, x + *index);
+			move(y, x + st->index);
 		}
 	} else if (ch == 32 || (ch >= 48 && ch < 58) ||
 			(ch >= 65 && ch < 91) ||
 			(ch >= 97 && ch < 123)) {
-		if (*index < 64) {
-			input[*index] = ch;
+		if (st->index < 64) {
+			st->input[st->index] = ch;
 			addch(ch);
 
-			++(*index);
+			++(st->index);
 		}
 	} else if (ch == '\n') {
 		mvaddstr(y, x, "                                                                ");
 		move(y, x);
 
-		memset(input, 0, 64);
-		*index = 0;
+		memset(st->input, 0, 64);
+		st->index = 0;
 	}
 }

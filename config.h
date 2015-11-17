@@ -6,6 +6,8 @@ struct config {
 	char lname[256];
 
 	int stime;
+
+	int pages;
 };
 
 struct config *load_config();

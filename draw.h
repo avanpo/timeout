@@ -1,8 +1,8 @@
 #ifndef DRAW_H
 #define DRAW_H
 
-#define WIDTH 110
+#include "state.h"
 
-void draw_page(int time_left, struct config *conf);
+void draw_page(struct state *st, struct config *conf);
 
 #endif

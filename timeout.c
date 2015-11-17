@@ -1,15 +1,17 @@
 #include <ncurses.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
 #include "config.h"
 #include "draw.h"
 #include "input.h"
+#include "state.h"
 #include "utils.h"
 
 void init_window_simple();
 void init_window_main();
+struct state *init_state();
 
 void begin(struct config *conf)
 {
@@ -21,7 +23,7 @@ void begin(struct config *conf)
 	char str[32] = {0};
 
 	move(y, x);
-	print_str_slowly("please enter your last name");
+	print_str_slowly("enter your last name to continue...");
 
 	while (1) {
 		move(y + 2, x);
@@ -43,22 +45,18 @@ void begin(struct config *conf)
 
 int run(struct config *conf)
 {
-	int time_total, time_left;
 	time_t start, now;
-
 	time(&start);
-	time_total = conf->stime;
 
-	int index = 0;
-	int input[64] = {0};
+	struct state *st = init_state();
+	st->time_total = conf->stime;
 
 	while (1) {
 		time(&now);
-		time_left = time_total - (now - start);
+		st->time_left = st->time_total - (now - start);
+		draw_page(st, conf);
 
-		draw_page(time_left, conf);
-
-		handle_input(&index, input, 7, 0);
+		handle_input(st, 7, 0);
 
 		millisleep(10);
 	}
@@ -96,4 +94,15 @@ void init_window_main()
 
 	clear();
 	refresh();
+}
+
+struct state *init_state()
+{
+	struct state *st = calloc(1, sizeof(struct state));
+
+	st->time_left = 0;
+	st->page = 1;
+	st->index = 0;
+	
+	return st;
 }
