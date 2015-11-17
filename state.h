@@ -7,8 +7,10 @@ struct state {
 	int page;
 	char message[64];
 
+	char *key;
+
 	int index;
-	int input[64];
+	char input[64];
 };
 
 #endif

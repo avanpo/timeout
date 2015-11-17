@@ -3,6 +3,6 @@
 
 #define INPUT_LENGTH 64
 
-void handle_input(struct state *st, int y, int x);
+void accept_input(struct state *st);
 
 #endif

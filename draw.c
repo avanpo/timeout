@@ -7,82 +7,95 @@
 #include "draw.h"
 #include "state.h"
 
-#define WIDTH 100
+#define WIDTH  100
+#define HEIGHT 45
+#define BASE_Y 7
 
-static void draw_border(int size_y, int size_x, int time_left);
+static int size_y, size_x, page_y, page_x;
+
+static void draw_line(int y);
+static void draw_border(int time_left);
 
 static void draw_info(int y, int x, struct state *st, struct config *conf)
 {
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 
-	mvprintw(y + 1, x, "Welcome, %s %s", conf->fname, conf->lname);
-	mvprintw(y + 1, x + WIDTH - 18, "%02d:%02d - %02d/%02d/%04d", tm.tm_hour, tm.tm_min, tm.tm_mday, tm.tm_mon + 1, tm.tm_year+ 1900);
+	mvprintw(y, x, "Welcome, %s %s", conf->fname, conf->lname);
+	mvprintw(y, x + WIDTH - 18, "%02d:%02d - %02d/%02d/%04d", tm.tm_hour, tm.tm_min, tm.tm_mday, tm.tm_mon + 1, tm.tm_year+ 1900);
 
-	move(y + 2, x);
-	int i;
-	for (i = 0; i < WIDTH; ++i) {
-		addch('-');
-	}
+	draw_line(y + 1);
 
-	mvprintw(y + 4, x, "File: %1d/%1d", st->page, conf->pages);
+	mvprintw(y + 3, x, "File: %1d/%1d", st->page, conf->pages);
 }
 
-static void draw_key(int y, int x)
+static void draw_key(int y, int x, struct state *st)
 {
-	move(y, x);
-
 	int i;
-	addstr("key:");
-	for (i = 0; i < 16; ++i) {
+	mvprintw(y, x, "  ");
+	for (i = 1; i < 16; ++i) {
 		printw("    ");
 	}
-	move(y + 1, x + 4);
-	for (i = 0; i < 16; ++i) {
-		if (!i) {
-			printw("  --");
-		} else {
-			printw("----");
-		}
+	mvprintw(y + 1, x, "--");
+	for (i = 1; i < 16; ++i) {
+		printw("----");
 	}
-	move(y + 2, x + 4);
-	for (i = 0; i < 16; ++i) {
+	mvprintw(y + 2, x, "01");
+	for (i = 1; i < 16; ++i) {
 		printw("  %02d", i + 1);
 	}
 }
 
-static void draw_input(int y, int x)
+static void draw_goal(int y, int x, struct state *st)
 {
-	move(y, x);
-	int i;
-	for (i = 0; i < WIDTH; ++i) {
-		addch('-');
-	}
+	draw_line(y);
+	mvaddstr(y + 2, x, "To access encrypted files, enter the encryption key using the");
+	mvaddstr(y + 3, x, "command \"key [DIGIT] [KEY_BYTE]\". When the key is complete,");
+	mvaddstr(y + 4, x, "enter \"decrypt\" to decrypt the files.");
+	mvaddstr(y + 6, x, "WARNING: An invalid key speeds up the self destruct sequence!");
+	draw_key(y + 8, x, st);
+	mvaddstr(y + 1, x + WIDTH - COUNTDOWN_LENGTH, "==================================");
+	draw_countdown(st->time_left, y + 4, x + WIDTH - COUNTDOWN_LENGTH);
+	mvaddstr(y + 11, x + WIDTH - COUNTDOWN_LENGTH, "==================================");
+}
+
+static void draw_input(int y, int x, struct state *st)
+{
+	draw_line(y);
 	mvaddstr(y + 2, x, "Please enter a command:");
 	mvaddstr(y + 4, x, ">");
-	mvaddstr(y + 6, x, "");
+	mvaddstr(y + 6, x, "                                                                ");
+	mvaddstr(y + 6, x, st->message);
 	move(y + 4, x + 2);
 }
 
 void draw_page(struct state *st, struct config *conf)
 {
-	int size_y, size_x;
 	getmaxyx(stdscr, size_y, size_x);
+	page_y = BASE_Y;
+	page_x = (size_x - WIDTH) / 2;
 
-	draw_border(size_y, size_x, st->time_left);
+	draw_border(st->time_left);
 
-	draw_info(6, (size_x - WIDTH) / 2, st, conf);
+	draw_info(page_y, page_x, st, conf);
 
-	draw_key(20, size_x / 2 - 35);
-
-	draw_countdown(st->time_left, 25, size_x / 2 - COUNTDOWN_LENGTH / 2);
+	draw_goal(page_y + HEIGHT - 19, page_x, st);
 
 	// this must be last, in order for the input function to
 	// pick up the cursor position
-	draw_input(40, (size_x - WIDTH) / 2);
+	draw_input(page_y + HEIGHT - 7, page_x, st);
 }
 
-static void draw_border(int size_y, int size_x, int time_left)
+static void draw_line(int y)
+{
+	move(y, page_x);
+	int i;
+	for (i = 0; i < WIDTH; ++i) {
+		addch('=');
+	}
+}
+
+static void draw_border(int time_left)
 {
 	srand(0);
 
@@ -91,7 +104,7 @@ static void draw_border(int size_y, int size_x, int time_left)
 
 	int i, j;
 	for (i = 0; i < size_y; ++i) {
-		if (i < 5 || i > 50) {
+		if (i < page_y - 2 || i > page_y + HEIGHT + 2) {
 			move(i, 0);
 			for (j = 0; j < size_x; ++j) {
 				addch(rand() % 2 + 48);
@@ -101,7 +114,7 @@ static void draw_border(int size_y, int size_x, int time_left)
 			for (j = 0; j < width; ++j) {
 				addch(rand() % 2 + 48);
 			}
-			move(i, width + WIDTH);
+			move(i, width + WIDTH + 10);
 			for (j = 0; j < width + remainder; ++j) {
 				addch(rand() % 2 + 48);
 			}

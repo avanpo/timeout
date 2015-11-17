@@ -54,9 +54,10 @@ int run(struct config *conf)
 	while (1) {
 		time(&now);
 		st->time_left = st->time_total - (now - start);
+
 		draw_page(st, conf);
 
-		handle_input(st, 7, 0);
+		accept_input(st);
 
 		millisleep(10);
 	}
@@ -68,7 +69,7 @@ int main(int argc, char **argv)
 
 	initscr();
 	init_window_simple();
-	begin(conf);
+	//begin(conf);
 
 	init_window_main();
 	run(conf);
