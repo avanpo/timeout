@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #include "config.h"
@@ -25,8 +26,22 @@ static void draw_info(int y, int x, struct state *st, struct config *conf)
 	mvprintw(y, x + WIDTH - 18, "%02d:%02d - %02d/%02d/%04d", tm.tm_hour, tm.tm_min, tm.tm_mday, tm.tm_mon + 1, tm.tm_year+ 1900);
 
 	draw_line(y + 1);
+}
 
-	mvprintw(y + 3, x, "File: %1d/%1d", st->page, conf->pages);
+static void draw_page_content(int y, int x, struct state *st, struct config *conf)
+{
+	mvprintw(y, x, "File: %1d/%1d", st->page + 1, conf->num_pages);
+
+	int l, i, j, len = strlen(conf->pages[st->page]);
+	for (l = 0, i = 0; i < len; ++l) {
+		for (j = 0; j < WIDTH && i < len; ++i, ++j) {
+			if (conf->pages[st->page][i] == '\n') {
+				++i;
+				break;
+			}
+			mvaddch(y + 2 + l, x + j, conf->pages[st->page][i]);
+		}
+	}
 }
 
 static void draw_key(int y, int x, struct state *st)
@@ -78,6 +93,8 @@ void draw_page(struct state *st, struct config *conf)
 	draw_border(st->time_left);
 
 	draw_info(page_y, page_x, st, conf);
+
+	draw_page_content(page_y + 3, page_x, st, conf);
 
 	draw_goal(page_y + HEIGHT - 19, page_x, st);
 

@@ -4,6 +4,7 @@
 struct state {
 	int time_total;
 	int time_left;
+	int num_pages;
 	int page;
 	char message[64];
 

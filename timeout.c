@@ -11,7 +11,7 @@
 
 void init_window_simple();
 void init_window_main();
-struct state *init_state();
+struct state *init_state(struct config *conf);
 
 void begin(struct config *conf)
 {
@@ -35,7 +35,7 @@ void begin(struct config *conf)
 
 		int len = strlen(conf->lname);
 
-		if (strlen(str) == len && !strncicmp(conf->lname, str, strlen(conf->lname))) {
+		if (strlen(str) == len && !strncicmp(conf->lname, str, len)) {
 			break;
 		} else {
 			mvaddstr(y + 4, x, "unknown user");
@@ -48,8 +48,7 @@ int run(struct config *conf)
 	time_t start, now;
 	time(&start);
 
-	struct state *st = init_state();
-	st->time_total = conf->stime;
+	struct state *st = init_state(conf);
 
 	while (1) {
 		time(&now);
@@ -97,13 +96,16 @@ void init_window_main()
 	refresh();
 }
 
-struct state *init_state()
+struct state *init_state(struct config *conf)
 {
 	struct state *st = calloc(1, sizeof(struct state));
 
 	st->time_left = 0;
-	st->page = 1;
+	st->page = 0;
 	st->index = 0;
 	
+	st->time_total = conf->stime;
+	st->num_pages = conf->num_pages;
+
 	return st;
 }

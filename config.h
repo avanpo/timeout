@@ -10,7 +10,7 @@ struct config {
 	char key[16];
 
 	int num_pages;
-	char *pages[16];
+	char *pages[32];
 };
 
 struct config *load_config();

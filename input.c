@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "state.h"
+#include "utils.h"
 
 static void handle_input(struct state *st)
 {
@@ -9,7 +10,14 @@ static void handle_input(struct state *st)
 
 	if (clen == 0) {
 		return;
+	} else if (clen == 4 && strncicmp(st->input, "next", 4)) {
+		++st->page;
+		st->page %= st->num_pages;
+	} else if (clen == 4 && strncicmp(st->input, "prev", 4)) {
+		--st->page;
+		st->page %= st->num_pages;
 	}
+
 	strncpy(st->message, st->input, clen);
 }
 
