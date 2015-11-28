@@ -3,6 +3,6 @@
 
 #include "state.h"
 
-void draw_page(struct state *st, struct config *conf);
+void draw_page(struct state *st);
 
 #endif

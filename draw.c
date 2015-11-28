@@ -9,12 +9,13 @@
 #include "state.h"
 
 #define WIDTH  100
-#define HEIGHT 45
+#define HEIGHT 44
 #define BASE_Y 7
 
 static int size_y, size_x, page_y, page_x;
 
 static void draw_line(int y);
+static void draw_blank_line(int y);
 static void draw_border(int time_left);
 
 static void draw_info(int y, int x, struct state *st, struct config *conf)
@@ -30,9 +31,13 @@ static void draw_info(int y, int x, struct state *st, struct config *conf)
 
 static void draw_page_content(int y, int x, struct state *st, struct config *conf)
 {
-	mvprintw(y, x, "File: %1d/%1d", st->page + 1, conf->num_pages);
-
 	int l, i, j, len = strlen(conf->pages[st->page]);
+	for (i = 0; i < HEIGHT - 22; ++i) {
+		draw_blank_line(y + i);
+	}
+
+	mvprintw(y, x, "File: %d/%d", st->page + 1, conf->num_pages);
+
 	for (l = 0, i = 0; i < len; ++l) {
 		for (j = 0; j < WIDTH && i < len; ++i, ++j) {
 			if (conf->pages[st->page][i] == '\n') {
@@ -47,9 +52,9 @@ static void draw_page_content(int y, int x, struct state *st, struct config *con
 static void draw_key(int y, int x, struct state *st)
 {
 	int i;
-	mvprintw(y, x, "  ");
+	mvprintw(y, x, "%02x", st->key[0]);
 	for (i = 1; i < 16; ++i) {
-		printw("    ");
+		printw("  %02x", st->key[i]);
 	}
 	mvprintw(y + 1, x, "--");
 	for (i = 1; i < 16; ++i) {
@@ -84,7 +89,7 @@ static void draw_input(int y, int x, struct state *st)
 	move(y + 4, x + 2);
 }
 
-void draw_page(struct state *st, struct config *conf)
+void draw_page(struct state *st)
 {
 	getmaxyx(stdscr, size_y, size_x);
 	page_y = BASE_Y;
@@ -92,9 +97,9 @@ void draw_page(struct state *st, struct config *conf)
 
 	draw_border(st->time_left);
 
-	draw_info(page_y, page_x, st, conf);
+	draw_info(page_y, page_x, st, st->conf);
 
-	draw_page_content(page_y + 3, page_x, st, conf);
+	draw_page_content(page_y + 3, page_x, st, st->conf);
 
 	draw_goal(page_y + HEIGHT - 19, page_x, st);
 
@@ -112,6 +117,15 @@ static void draw_line(int y)
 	}
 }
 
+static void draw_blank_line(int y)
+{
+	move(y, page_x);
+	int i;
+	for (i = 0; i < WIDTH; ++i) {
+		addch(' ');
+	}
+}
+
 static void draw_border(int time_left)
 {
 	srand(0);
@@ -121,7 +135,7 @@ static void draw_border(int time_left)
 
 	int i, j;
 	for (i = 0; i < size_y; ++i) {
-		if (i < page_y - 2 || i > page_y + HEIGHT + 2) {
+		if (i < page_y - 2 || i > page_y + HEIGHT + 1) {
 			move(i, 0);
 			for (j = 0; j < size_x; ++j) {
 				addch(rand() % 2 + 48);

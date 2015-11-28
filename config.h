@@ -7,10 +7,13 @@ struct config {
 
 	int stime;
 
-	char key[16];
+	unsigned char key[16];
 
 	int num_pages;
 	char *pages[32];
+
+	char fail[256];
+	char fail2[256];
 };
 
 struct config *load_config();

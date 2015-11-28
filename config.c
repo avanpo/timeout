@@ -36,17 +36,23 @@ struct config *load_config()
 			conf->pages[conf->num_pages] = calloc(2048, sizeof(char));
 			for (j = 0; j < len; ++j) {
 				if (value[j] == '`') {
-					conf->pages[conf->num_pages] = '\n';
+					conf->pages[conf->num_pages][j] = '\n';
 				} else {
-					conf->pages[conf->num_pages] = value[j];
+					conf->pages[conf->num_pages][j] = value[j];
 				}
 			}
 			++conf->num_pages;
 		}
 		if (strcmp(key, "key") == 0) {
 			for (j = 0; j < 16; ++j) {
-				sscanf(value, "%02hhX ", &conf->key[j]);
+				sscanf(value + j * 3, "%02hhx ", &conf->key[j]);
 			}
+		}
+		if (strcmp(key, "fail") == 0) {
+			strncpy(conf->fail, value, len);
+		}
+		if (strcmp(key, "fail2") == 0) {
+			strncpy(conf->fail2, value, len);
 		}
 
 		memset(key, 0, 256);

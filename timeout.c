@@ -43,6 +43,23 @@ void begin(struct config *conf)
 	}
 }
 
+void fail(struct config *conf)
+{
+	int size_y, size_x, y, x;
+	getmaxyx(stdscr, size_y, size_x);
+	y = size_y / 2 - 5;
+	x = size_x / 2 - 32;
+
+	mvprintw(y, x, conf->fail);
+	mvprintw(y + 2, x, conf->fail2);
+	curs_set(0);
+	refresh();
+
+	while (1) {
+		millisleep(10000);
+	}
+}
+
 int run(struct config *conf)
 {
 	time_t start, now;
@@ -54,7 +71,11 @@ int run(struct config *conf)
 		time(&now);
 		st->time_left = st->time_total - (now - start);
 
-		draw_page(st, conf);
+		if (st->time_left < 0) {
+			return 0;
+		}
+
+		draw_page(st);
 
 		accept_input(st);
 
@@ -71,8 +92,14 @@ int main(int argc, char **argv)
 	//begin(conf);
 
 	init_window_main();
-	run(conf);
+	int success = run(conf);
 
+	init_window_simple();
+	if (!success) {
+		fail(conf);
+	}
+
+	endwin();
 	return 0;
 }
 
@@ -80,6 +107,8 @@ void init_window_simple()
 {
 	nocbreak();
 	echo();
+	nodelay(stdscr, FALSE);
+	curs_set(1);
 
 	clear();
 	refresh();
@@ -100,10 +129,8 @@ struct state *init_state(struct config *conf)
 {
 	struct state *st = calloc(1, sizeof(struct state));
 
-	st->time_left = 0;
-	st->page = 0;
-	st->index = 0;
-	
+	st->conf = conf;
+
 	st->time_total = conf->stime;
 	st->num_pages = conf->num_pages;
 
