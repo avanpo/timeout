@@ -7,6 +7,7 @@
 #include "countdown.h"
 #include "draw.h"
 #include "state.h"
+#include "utils.h"
 
 #define WIDTH  100
 #define HEIGHT 44
@@ -37,6 +38,21 @@ static void draw_page_content(int y, int x, struct state *st, struct config *con
 	}
 
 	mvprintw(y, x, "File: %d/%d", st->page + 1, conf->num_pages);
+
+	if (!st->decrypted && st->page == conf->encrypted_page - 1) {
+		unsigned char plaintext[2048], ciphertext[2048];
+		strncpy((char *)plaintext, conf->pages[st->page], len);
+		int cipherlength = encrypt_AES_ECB(plaintext, ciphertext, len, conf->key);
+		mvprintw(y + 2, x, "THE FOLLOWING FILE IS ENCRYPTED");
+		for (i = 0, j = 0, l = 0; i < cipherlength; ++i, j += 3) {
+			if (j > WIDTH - 3) {
+				j = 0;
+				++l;
+			}
+			mvprintw(y + 4 + l, x + j, "%.2x ", ciphertext[i]);
+		}
+		return;
+	}
 
 	for (l = 0, i = 0; i < len; ++l) {
 		for (j = 0; j < WIDTH && i < len; ++i, ++j) {

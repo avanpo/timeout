@@ -1,5 +1,5 @@
 TARGET = timeout
-LIBS = -lncurses
+LIBS = -lncurses -lcrypto
 CC = gcc
 CFLAGS = -g -Wall
 

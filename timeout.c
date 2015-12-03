@@ -13,6 +13,16 @@ void init_window_simple();
 void init_window_main();
 struct state *init_state(struct config *conf);
 
+void intro(struct config *conf)
+{
+	move(1, 0);
+	printw(conf->intro);
+	printw("\n\nPress enter to continue...\n\n");
+	refresh();
+	char str[1] = {0};
+	getnstr(str, 0);
+}
+
 void begin(struct config *conf)
 {
 	int size_y, size_x, y, x;
@@ -56,7 +66,7 @@ void fail(struct config *conf)
 	refresh();
 
 	while (1) {
-		millisleep(10000);
+		millisleep(100000);
 	}
 }
 
@@ -68,11 +78,13 @@ int run(struct config *conf)
 	struct state *st = init_state(conf);
 
 	while (1) {
-		time(&now);
+		if (!st->decrypted) {
+			time(&now);
+		}
 		st->time_left = st->time_total - (now - start);
 
 		if (st->time_left < 0) {
-			return 0;
+			return st->decrypted;
 		}
 
 		draw_page(st);
@@ -89,7 +101,8 @@ int main(int argc, char **argv)
 
 	initscr();
 	init_window_simple();
-	//begin(conf);
+	intro(conf);
+	begin(conf);
 
 	init_window_main();
 	int success = run(conf);

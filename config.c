@@ -15,13 +15,13 @@ struct config *load_config()
 	struct config *conf = calloc(1, sizeof(struct config));
 
 	char key[256] = {0};
-	char value[2048] = {0};
+	char value[4096] = {0};
 
 	int i, j;
 
 	for (i = 0; fscanf(fp, "%[^:\n]: %[^\n]\n", key, value) == 2; ++i) {
 		int len = strlen(value);
-		if (len >= 2048) len = 2047;
+		if (len >= 4096) len = 4095;
 
 		if (strcmp(key, "first name") == 0 && len <= 256) {
 			strncpy(conf->fname, value, len);
@@ -32,8 +32,20 @@ struct config *load_config()
 		if (strcmp(key, "start time") == 0) {
 			conf->stime = (int)strtol(value, NULL, 10);
 		}
+		if (strcmp(key, "intro") == 0) {
+			for (j = 0; j < len; ++j) {
+				if (value[j] == '`') {
+					conf->intro[j] = '\n';
+				} else {
+					conf->intro[j] = value[j];
+				}
+			}
+		}
+		if (strcmp(key, "encrypted") == 0) {
+			conf->encrypted_page = (int)strtol(value, NULL, 10);
+		}
 		if (strcmp(key, "page") == 0) {
-			conf->pages[conf->num_pages] = calloc(2048, sizeof(char));
+			conf->pages[conf->num_pages] = calloc(4096, sizeof(unsigned char));
 			for (j = 0; j < len; ++j) {
 				if (value[j] == '`') {
 					conf->pages[conf->num_pages][j] = '\n';

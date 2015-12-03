@@ -9,6 +9,10 @@ struct config {
 
 	unsigned char key[16];
 
+	char intro[4096];
+
+	int encrypted_page;
+
 	int num_pages;
 	char *pages[32];
 
