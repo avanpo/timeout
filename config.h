@@ -12,6 +12,9 @@ struct config {
 	int num_pages;
 	char *pages[32];
 
+	int num_hints;
+	char *hints[32];
+
 	char fail[256];
 	char fail2[256];
 };

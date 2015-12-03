@@ -49,6 +49,15 @@ static void handle_input(struct state *st)
 			st->decrypted = 1;
 			strcpy(st->message, "File successfully decrypted.");
 		}
+	} else if (clen == 4 && strncicmp(st->input, "hint", 4) == 0) {
+		int n;
+		sscanf(st->input + 5, "%d", &n);
+
+		if (n > 0 && n <= st->conf->num_hints) {
+			strcpy(st->message, st->conf->hints[n - 1]);
+		} else {
+			strcpy(st->message, "That hint does not exist.");
+		}
 	} else {
 		strcpy(st->message, "Unknown command.");
 	}

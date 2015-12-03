@@ -43,6 +43,11 @@ struct config *load_config()
 			}
 			++conf->num_pages;
 		}
+		if (strcmp(key, "hint") == 0) {
+			conf->hints[conf->num_hints] = calloc(64, sizeof(char));
+			strncpy(conf->hints[conf->num_hints], value, len);
+			++conf->num_hints;
+		}
 		if (strcmp(key, "key") == 0) {
 			for (j = 0; j < 16; ++j) {
 				sscanf(value + j * 3, "%02hhx ", &conf->key[j]);
