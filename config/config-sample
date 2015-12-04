@@ -5,5 +5,18 @@ start time: 1800
 
 key: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
 
+encrypted: 3
+
 page: This is the first page. By default, the first page is encrypted. For a newline, use a backtick. Backticks therefore cannot be used in the text.``This will be a new paragraph.
 page: This is page two. It can have a puzzle that reveals some of the hexadecimal key.
+page: This is page three. It is encrypted with the key, as designated above.
+
+hint: A hint accessed by 1
+hint: Another hint accessed by 2
+
+intro: This text is shown before the login screen, and can be used to set the scene. Same backtick rules apply for new paragraphs.
+
+code: A secret word or phrase adding 10 minutes of time
+
+fail: The first line one receives after the clock runs out.
+fail2: This is the second.

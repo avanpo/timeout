@@ -11,7 +11,7 @@
 
 #define WIDTH  100
 #define HEIGHT 44
-#define BASE_Y 7
+#define BASE_Y 2
 
 static int size_y, size_x, page_y, page_x;
 

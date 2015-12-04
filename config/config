@@ -9,7 +9,7 @@ intro: It's 4 AM on a cold Russian morning. Vladimir Putin has had too much vodk
 
 encrypted: 2
 
-page: This file documents how to use this terminal.``Available commands:`` next            - browse to the next file` prev            - browse to the previous file` key NUMBER BYTE - enter a new byte of the key, at the given number (ex: key 01 8f)` decrypt         - attempt to decrypt the encrypted files using the entered key` hint NUMBER     - view a hint identified by the number (ex: hint 3)` code WORD       - enter a secret word to buy time``For help please contact the system administrator.
+page: This file documents how to use this terminal.``Available commands:`` next            - browse to the next file` prev            - browse to the previous file` key NUMBER BYTE - enter a new byte of the key, at the given number (ex: key 1 8f)` decrypt         - attempt to decrypt the encrypted files using the entered key` hint NUMBER     - view a hint identified by the number (ex: hint 3)` code WORD       - enter a secret word to buy time``For help please contact the system administrator.
 page: There is a device that can stop nuclear launch, once triggered. I have hidden it in Oploo, NL where no one will ever find it.``The device is inside a suitcase, under a bed. The code to open the suitcase is seven six four.
 page: 0001 01011100`1011 11101110`1111 10011010
 page: It is a shame that mother Russia is 13th in world GDP rankings, while the USA is 1st. We must do better.
@@ -17,7 +17,7 @@ page: 3: 4, 9, 25, 49, ?``5: 2, 3, 5, 8, ?``(available hint: 1)
 page: 9: *^``+-----+-----+-----+`|    1|  3 4|  9 6|`|    8|    1|    4|`|  4  |8 9  |5   2|`+-----+-----+-----+`|  3  |4 1 2|    ^|`|     |9   6|     |`|    *|3 8 5|  4  |`+-----+-----+-----+`|5   9|  4 8|  3  |`|8    |5    |9    |`|3 1  |7 2  |4    |`+-----+-----+-----+
 page:  6 -> q`14 -> w`12 -> y
 page: GUR FRPBAQ OLGR BS GUR XRL VF Q2``(available hint: 2)
-page: 13: White to move.`` +---------------+`8|K   k   n      |     K: black king`7|               |     k: white king`6|               |     n: white knight`5|               |     b: white bishop`4|      b        |`3|               |`2|               |`1|               |` +---------------+`  a b c d e f g h
+page: 13: White to move. Checkmate in 1.`` +---------------+`8|K   k   n      |     K: black king`7|               |     k: white king`6|               |     n: white knight`5|               |     b: white bishop`4|      b        |`3|               |`2|               |`1|               |` +---------------+`  a b c d e f g h
 page: While I was in the mountains, I overheard a junior sergeant use the words "bravo foxtrot". I quickly disciplined him for using NATO military terms.
 page: 8: ----. -----``10: ..-. ..---``16: ...-- -...
 page: My favorite planets are Neptune and then Venus.
