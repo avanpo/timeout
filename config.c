@@ -23,10 +23,10 @@ struct config *load_config()
 		int len = strlen(value);
 		if (len >= 4096) len = 4095;
 
-		if (strcmp(key, "first name") == 0 && len <= 256) {
+		if (strcmp(key, "first name") == 0 && len < 256) {
 			strncpy(conf->fname, value, len);
 		}
-		if (strcmp(key, "last name") == 0 && len <= 256) {
+		if (strcmp(key, "last name") == 0 && len < 256) {
 			strncpy(conf->lname, value, len);
 		}
 		if (strcmp(key, "start time") == 0) {
@@ -65,15 +65,18 @@ struct config *load_config()
 				sscanf(value + j * 3, "%02hhx ", &conf->key[j]);
 			}
 		}
-		if (strcmp(key, "fail") == 0) {
+		if (strcmp(key, "code") == 0 && len < 100) {
+			strncpy(conf->code, value, len);
+		}
+		if (strcmp(key, "fail") == 0 && len < 256) {
 			strncpy(conf->fail, value, len);
 		}
-		if (strcmp(key, "fail2") == 0) {
+		if (strcmp(key, "fail2") == 0 && len < 256) {
 			strncpy(conf->fail2, value, len);
 		}
 
 		memset(key, 0, 256);
-		memset(value, 0, 1024);
+		memset(value, 0, 4096);
 	}
 
 	if (i < 5 || conf->num_pages < 1) {

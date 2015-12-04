@@ -32,7 +32,7 @@ static void handle_input(struct state *st)
 		}
 	} else if (clen == 7 && strncicmp(st->input, "decrypt", 7) == 0) {
 		int i, j, incorrect;
-		char msg[64] = {0};
+		char msg[100] = {0};
 		j = sprintf(msg, "Incorrect key bytes at position(s)");
 		for (i = 0, incorrect = 0; i < 16; ++i) {
 			if (st->key[i] != st->conf->key[i]) {
@@ -57,6 +57,18 @@ static void handle_input(struct state *st)
 			strcpy(st->message, st->conf->hints[n - 1]);
 		} else {
 			strcpy(st->message, "That hint does not exist.");
+		}
+	} else if (clen == 4 && strncicmp(st->input, "code", 4) == 0) {
+		char code[100] = {0};
+		sscanf(st->input + 5, "%s", code);
+
+		int n = strlen(st->conf->code);
+		if (strlen(code) == n && strncicmp(code, st->conf->code, n) == 0 && !st->code_used) {
+			st->time_total += 600;
+			++st->code_used;
+			strcpy(st->message, "Code accepted.");
+		} else {
+			strcpy(st->message, "That code does not exist.");
 		}
 	} else {
 		strcpy(st->message, "Unknown command.");
@@ -97,9 +109,9 @@ void accept_input(struct state *st)
 			++(st->index);
 		}
 	} else if (ch == '\n') {
-		mvaddstr(y, x, "                                                                ");
+		mvaddstr(y, x, "                                                                    ");
 		move(y, x);
-		memset(st->message, 0, 64);
+		memset(st->message, 0, 100);
 
 		handle_input(st);
 

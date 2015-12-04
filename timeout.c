@@ -17,7 +17,7 @@ void intro(struct config *conf)
 {
 	move(1, 0);
 	printw(conf->intro);
-	printw("\n\nPress enter to continue...\n\n");
+	printw("\n\nPress enter to continue to the terminal...\n\n");
 	refresh();
 	char str[1] = {0};
 	getnstr(str, 0);
@@ -106,8 +106,8 @@ int main(int argc, char **argv)
 
 	initscr();
 	init_window_simple();
-	//intro(conf);
-	//begin(conf);
+	intro(conf);
+	begin(conf);
 
 	init_window_main();
 	int success = run(conf);

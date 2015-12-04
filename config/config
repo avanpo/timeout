@@ -1,17 +1,17 @@
 first name: Vladimir
 last name: Putin
 
-start time: 1800
+start time: 2100
 
-key: 5c d2 79 b5 0d 82 41 00 78 f2 00 bf c7 d1 9a 3b
+key: 5c d2 79 b5 0d 82 41 90 78 f2 ee bf c7 d1 9a 3b
 
-intro: It's 4 AM on a cold Russian morning. Vladimir Putin has had too much vodka and is passed out on the floor of the Kremlin, after activating the launch of the entire Russian nuclear arsenal in less than 6 hours. You're on-site as part of an elite Federal Security Service team. Unfortunately, even the best doctor in the service can't revive the loudly-snoring Putin. Is there another way to prevent nuclear apocalypse?``As the team's computer expert, you've been tasked with hacking into the encrypted files on Putin's computer terminal. The files are encrypted with military grade encryption, and there is no way to brute force the system. You must find the key. To make matters even worse, the terminal is protected by a time lock, and the system will delete itself if the files aren't decrypted within a certain amount of time. Once those files are deleted, there will be no way to prevent nuclear disaster. You only have one chance.``Luckily, you're a computer expert. You know that information in the computer is stored as 0s and 1s, called bits. In computer memory, these bits are accessed in groups of 8 at a time, called a byte. Since each of those 8 bits have 2 possible states (0 and 1), 1 byte can have 2^8 = 256 possible values. For readability, bytes are generally written in hexadecimal (a number system in base 16 (0 1 2 3 4 5 6 7 8 9 a b c d e f), instead of base 10, or decimal (0 1 2 3 4 5 6 7 8 9)). This is because 4 bits is 1 hexadecimal digit (since 2^4 = 16). So 1 byte can be represented in 2 hexadecimal digits.``For example:`binary (bits):     0000 0001 0010 0100 0110 1000 1001 1010 1110 1111`decimal (base 10):    0    1    2    4    6    8    9   10   14   15`hexadecimal:          0    1    2    4    6    8    9    a    e    f``Since decimal doesn't play nice with groups of binary, we use hexadecimal to easily represent bytes (for example: 10001111 = 8f). The key that decrypts the files is 16 bytes (128 bits) long. So for each of those 16 bytes, you will need to enter a 2-digit hexadecimal number. It might be helpful to write down the above examples for reference!``Remember that the team helping you is the best of the best. You will need their help to find the key in time. It might also be helpful for everyone to have pen and paper handy. Using the internet on your phone is allowed. Udachi!
+intro: It's 4 AM on a cold Russian morning. Vladimir Putin has had too much vodka and is passed out on the floor of the Kremlin, after activating the launch of the entire Russian nuclear arsenal. The launch is set to happen in less than 6 hours. You're on-site as part of an elite Russian Federal Security Service team. Unfortunately, even the best doctor in the service can't revive the loudly-snoring Putin. Is there another way to prevent nuclear apocalypse?``As the team's computer expert, you've been tasked with hacking into the encrypted files on Putin's computer terminal. The files are encrypted with military grade encryption, and there is no way to brute force the system. You must find the key. To make matters even worse, the terminal is protected by a time lock, and the system will delete itself if the files aren't decrypted within a certain amount of time. Once those files are deleted, there will be no way to prevent nuclear disaster. You only have one chance.``Luckily, you're a computer expert. And Putin has a poor memory, and an interest in puzzles and cryptography. Some of the files on Putin's terminal are not encrypted.``As a computer expert, you know that information in the computer is stored as 0s and 1s, called bits. In computer memory, these bits are accessed in groups of 8 at a time, called a byte. Since each of those 8 bits have 2 possible states (0 and 1), 1 byte can have 2^8 = 256 possible values. For readability, bytes are generally written in hexadecimal (a number system in base 16 (0 1 2 3 4 5 6 7 8 9 a b c d e f), instead of base 10, or decimal (0 1 2 3 4 5 6 7 8 9)). This is because 4 bits is exactly 1 hexadecimal digit (since 2^4 = 16). So 1 byte can be represented in 2 hexadecimal digits.``For example, consider the following half-bytes:`binary (bits):     0000 0001 0010 0100 0110 1000 1001 1010 1110 1111`decimal (base 10):    0    1    2    4    6    8    9   10   14   15`hexadecimal:          0    1    2    4    6    8    9    a    e    f``Since decimal doesn't play nice with groups of binary, we use hexadecimal to easily represent bytes (for example: 10001111 = 8f). The key that decrypts the files is 16 bytes (128 bits) long. So for each of those 16 bytes, you will need to enter a 2-digit hexadecimal number. It might be helpful to write down the above examples for reference!``Remember that the team helping you is the best of the best. You will need their help to find the key in time. It might also be helpful for you and your team to have pen, paper and the internet handy. Udachi!
 
 encrypted: 2
 
-page: This file documents how to use this terminal.``Available commands:`` next            - browse to the next file` prev            - browse to the previous file` key NUMBER BYTE - enter a new byte of the key, at the given number (ex: key 01 8f)` decrypt         - attempt to decrypt the encrypted files using the entered key` hint NUMBER     - view a hint identified by the number (ex: hint 3)``For help please contact the system administrator.
+page: This file documents how to use this terminal.``Available commands:`` next            - browse to the next file` prev            - browse to the previous file` key NUMBER BYTE - enter a new byte of the key, at the given number (ex: key 01 8f)` decrypt         - attempt to decrypt the encrypted files using the entered key` hint NUMBER     - view a hint identified by the number (ex: hint 3)` code WORD       - enter a secret word to buy time``For help please contact the system administrator.
 page: There is a device that can stop nuclear launch, once triggered. I have hidden it in Oploo, NL where no one will ever find it.``The device is inside a suitcase, under a bed. The code to open the suitcase is seven six four.
-page: 0001 01011100`1111 10011010
+page: 0001 01011100`1011 11101110`1111 10011010
 page: It is a shame that mother Russia is 13th in world GDP rankings, while the USA is 1st. We must do better.
 page: 3: 4, 9, 25, 49, ?``5: 2, 3, 5, 8, ?``(available hint: 1)
 page: 9: *^``+-----+-----+-----+`|    1|  3 4|  9 6|`|    8|    1|    4|`|  4  |8 9  |5   2|`+-----+-----+-----+`|  3  |4 1 2|    ^|`|     |9   6|     |`|    *|3 8 5|  4  |`+-----+-----+-----+`|5   9|  4 8|  3  |`|8    |5    |9    |`|3 1  |7 2  |4    |`+-----+-----+-----+
@@ -19,7 +19,7 @@ page:  6 -> q`14 -> w`12 -> y
 page: GUR FRPBAQ OLGR BS GUR XRL VF Q2``(available hint: 2)
 page: 13: White to move.`` +---------------+`8|K   k   n      |     K: black king`7|               |     k: white king`6|               |     n: white knight`5|               |     b: white bishop`4|      b        |`3|               |`2|               |`1|               |` +---------------+`  a b c d e f g h
 page: While I was in the mountains, I overheard a junior sergeant use the words "bravo foxtrot". I quickly disciplined him for using NATO military terms.
-page: 10: ..-. ..---``16: ...-- -...
+page: 8: ----. -----``10: ..-. ..---``16: ...-- -...
 page: My favorite planets are Neptune and then Venus.
 page: TUYEN HRTLF ETEEI FHIVV OBSEE``(available hint: 3)
 page: q -> o`y -> ^`w -> $``(available hint: 4)
@@ -30,6 +30,8 @@ hint: These sequences are in decimal while the key requires hexadecimal
 hint: Caesar cipher with a shift of 13
 hint: Columnar transposition cipher with the simplest ordering
 hint: The latter symbols might correspond to Putin's other notes
+
+code: oploo
 
 fail: your failure has doomed the world to a fiery, apocalyptic end.
 fail2: thanks a lot!

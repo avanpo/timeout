@@ -7,9 +7,10 @@ struct state {
 	int time_total;
 	int time_left;
 	int decrypted;
+	int code_used;
 	int num_pages;
 	int page;
-	char message[64];
+	char message[100];
 
 	unsigned char key[16];
 
