@@ -6,7 +6,7 @@
 
 struct config *load_config()
 {
-	FILE *fp = fopen("config", "r");
+	FILE *fp = fopen("config/config", "r");
 	if (fp == NULL) {
 		fprintf(stderr, "Failed to open config file.\n");
 		exit(EXIT_FAILURE);

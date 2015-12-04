@@ -32,6 +32,8 @@ void begin(struct config *conf)
 
 	char str[32] = {0};
 
+	clear();
+	refresh();
 	move(y, x);
 	print_str_slowly("enter your last name to continue...");
 
@@ -47,6 +49,9 @@ void begin(struct config *conf)
 
 		if (strlen(str) == len && !strncicmp(conf->lname, str, len)) {
 			break;
+		} else if (strlen(str) <= 0) {
+			move(y + 4, x);
+			clrtoeol();
 		} else {
 			mvaddstr(y + 4, x, "unknown user");
 		}
@@ -101,8 +106,8 @@ int main(int argc, char **argv)
 
 	initscr();
 	init_window_simple();
-	intro(conf);
-	begin(conf);
+	//intro(conf);
+	//begin(conf);
 
 	init_window_main();
 	int success = run(conf);

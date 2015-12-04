@@ -43,13 +43,13 @@ static void draw_page_content(int y, int x, struct state *st, struct config *con
 		unsigned char plaintext[2048], ciphertext[2048];
 		strncpy((char *)plaintext, conf->pages[st->page], len);
 		int cipherlength = encrypt_AES_ECB(plaintext, ciphertext, len, conf->key);
-		mvprintw(y + 2, x, "THE FOLLOWING FILE IS ENCRYPTED");
+		mvprintw(y + 3, x, "THE FOLLOWING FILE IS ENCRYPTED");
 		for (i = 0, j = 0, l = 0; i < cipherlength; ++i, j += 3) {
 			if (j > WIDTH - 3) {
 				j = 0;
 				++l;
 			}
-			mvprintw(y + 4 + l, x + j, "%.2x ", ciphertext[i]);
+			mvprintw(y + 5 + l, x + j, "%.2x ", ciphertext[i]);
 		}
 		return;
 	}
@@ -60,7 +60,7 @@ static void draw_page_content(int y, int x, struct state *st, struct config *con
 				++i;
 				break;
 			}
-			mvaddch(y + 2 + l, x + j, conf->pages[st->page][i]);
+			mvaddch(y + 3 + l, x + j, conf->pages[st->page][i]);
 		}
 	}
 }
@@ -76,23 +76,19 @@ static void draw_key(int y, int x, struct state *st)
 	for (i = 1; i < 16; ++i) {
 		printw("----");
 	}
-	mvprintw(y + 2, x, "01");
+	mvprintw(y + 2, x, " 1");
 	for (i = 1; i < 16; ++i) {
-		printw("  %02d", i + 1);
+		printw("  %2d", i + 1);
 	}
 }
 
 static void draw_goal(int y, int x, struct state *st)
 {
 	draw_line(y);
-	mvaddstr(y + 2, x, "To access encrypted files, enter the encryption key using the");
-	mvaddstr(y + 3, x, "command \"key [DIGIT] [KEY_BYTE]\". When the key is complete,");
-	mvaddstr(y + 4, x, "enter \"decrypt\" to decrypt the files.");
-	mvaddstr(y + 6, x, "WARNING: An invalid key speeds up the self destruct sequence!");
-	draw_key(y + 8, x, st);
-	mvaddstr(y + 1, x + WIDTH - COUNTDOWN_LENGTH, "==================================");
-	draw_countdown(st->time_left, y + 4, x + WIDTH - COUNTDOWN_LENGTH);
-	mvaddstr(y + 11, x + WIDTH - COUNTDOWN_LENGTH, "==================================");
+	mvaddstr(y + 2, x, "The currently entered key is shown here. WARNING: An invalid");
+	mvaddstr(y + 3, x, "decryption speeds up the system delete sequence slightly!");
+	draw_key(y + 6, x, st);
+	draw_countdown(st->time_left, y + 3, x + WIDTH - COUNTDOWN_LENGTH);
 }
 
 static void draw_input(int y, int x, struct state *st)
@@ -100,7 +96,7 @@ static void draw_input(int y, int x, struct state *st)
 	draw_line(y);
 	mvaddstr(y + 2, x, "Please enter a command:");
 	mvaddstr(y + 4, x, ">");
-	mvaddstr(y + 6, x, "                                                                ");
+	mvaddstr(y + 6, x, "                                                                                        ");
 	mvaddstr(y + 6, x, st->message);
 	move(y + 4, x + 2);
 }
@@ -117,7 +113,7 @@ void draw_page(struct state *st)
 
 	draw_page_content(page_y + 3, page_x, st, st->conf);
 
-	draw_goal(page_y + HEIGHT - 19, page_x, st);
+	draw_goal(page_y + HEIGHT - 17, page_x, st);
 
 	// this must be last, in order for the input function to
 	// pick up the cursor position
