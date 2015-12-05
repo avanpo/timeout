@@ -9,8 +9,8 @@ intro: It's 4 AM on a cold Russian morning. Vladimir Putin has had too much vodk
 
 encrypted: 2
 
-page: This file documents how to use this terminal.``Available commands:`` next            - browse to the next file` prev            - browse to the previous file` key NUMBER BYTE - enter a new byte of the key, at the given number (ex: key 1 8f)` decrypt         - attempt to decrypt the encrypted files using the entered key` hint NUMBER     - view a hint identified by the number (ex: hint 3)` code WORD       - enter a secret word to buy time``For help please contact the system administrator.
-page: There is a device that can stop nuclear launch, once triggered. I have hidden it in Oploo, NL where no one will ever find it.``The device is inside a suitcase, under a bed. The code to open the suitcase is seven six four.
+page: This file documents how to use this terminal.``Available commands:`` next            - browse to the next file` prev            - browse to the previous file` key NUMBER BYTE - enter a new byte of the key, at the given number (ex: key 1 8f)` decrypt         - attempt to decrypt the encrypted files using the entered key (WARNING: an`                   invalid decryption will slightly speed up the system delete sequence!)` hint NUMBER     - view a hint identified by the number (ex: hint 3)` code WORD       - enter a secret word to buy time``For help please contact the system administrator.
+page: There is a device that can stop nuclear launch, once triggered. I have hidden it in Oploo, NL where no one will ever find it.``The device is inside a suitcase, under a bed upstairs in the back of the house. The code to open the lock on the suitcase is seven six four.
 page: 0001 01011100`1011 11101110`1111 10011010
 page: It is a shame that mother Russia is 13th in world GDP rankings, while the USA is 1st. We must do better.
 page: 3: 4, 9, 25, 49, ?``5: 2, 3, 5, 8, ?``(available hint: 1)
@@ -23,13 +23,14 @@ page: 8: ----. -----``10: ..-. ..---``16: ...-- -...
 page: My favorite planets are Neptune and then Venus.
 page: TUYEN HRTLF ETEEI FHIVV OBSEE``(available hint: 3)
 page: q -> o`y -> ^`w -> $``(available hint: 4)
-page: 7: *^``1234 www`5123 bw`3162 www`6413 www`4326 bbw`*__^ bbbb
+page: 7: *^``1234 www`5123 bw`3162 www`6413 www`4326 bbw`*__^ bbbb``(available hint: 5)
 page: "In cryptography, a classical cipher is a type of cipher that was used historically [...] probably the most basic types of ciphers, which made them not very reliable [...] Modern schemes use computers or other digital technology, and operate on bits and bytes [...] classical ciphers were used by well-respected people, such as Julius Caesar [...] often susceptible to a frequency analysis, because for example frequent letters in the plaintext language correspond to frequent letters in the ciphertexts"``"[...] a transposition cipher is a method of encryption by which the positions held by units of plaintext (which are commonly characters or groups of characters) are shifted according to a regular system [...] transposition does not affect the frequency of individual symbols, simple transposition can be easily detected by the cryptanalyst by doing a frequency count. If the ciphertext ebhibits a frequency distribution very similar to plaintext, it is most likely a transposition [...] often attacked by anagramming -- sliding pieces of ciphertext around, then looking for [...]"
 
 hint: These sequences are in decimal while the key requires hexadecimal
 hint: Caesar cipher with a shift of 13
 hint: Columnar transposition cipher with the simplest ordering
 hint: The latter symbols might correspond to Putin's other notes
+hint: Only a master mind could solve this puzzle...
 
 code: oploo
 

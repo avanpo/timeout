@@ -28,7 +28,7 @@ void begin(struct config *conf)
 	int size_y, size_x, y, x;
 	getmaxyx(stdscr, size_y, size_x);
 	y = size_y / 2 - 5;
-	x = size_x / 2 - 32;
+	x = size_x / 2 - 26;
 
 	char str[32] = {0};
 
