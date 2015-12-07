@@ -7,9 +7,12 @@ key: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
 
 encrypted: 3
 
-page: This is the first page. By default, the first page is encrypted. For a newline, use a backtick. Backticks therefore cannot be used in the text.``This will be a new paragraph.
+page: This is the first page. For a newline, use a backtick. Backticks therefore cannot be used in the text.``This will be a new paragraph.
 page: This is page two. It can have a puzzle that reveals some of the hexadecimal key.
-page: This is page three. It is encrypted with the key, as designated above.
+page: This is page three. It is encrypted with the key, as designated above. So the player will only see a bunch of encrypted hexadecimal.
+page: This is page four. Up to 32 pages can be added.
+page: This file documents how to use this terminal.``Available commands:`` next            - browse to the next file` prev            - browse to the previous file` key NUMBER BYTE - enter a new byte of the key, at the given number (ex: key 1 8f)` decrypt         - attempt to decrypt the encrypted files using the entered key (WARNING: an`                   invalid decryption will slightly speed up the system delete sequence!)` hint NUMBER     - view a hint identified by the number (ex: hint 3)` code WORD       - enter a secret word to buy time``For help please contact the system administrator.
+page: It might be helpful to include the above page as page 1, so that the user will know the commands to play.
 
 hint: A hint accessed by 1
 hint: Another hint accessed by 2
